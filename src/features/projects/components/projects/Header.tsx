@@ -3,6 +3,7 @@ import SearchIcon from '../../../../../public/assets/images/icons/SearchIcon';
 import { useTranslation } from 'next-i18next';
 import { SetState } from '../../../common/types/common';
 import { MapProject } from '../../../common/types/ProjectPropsContextInterface';
+import usecustomStyleData from '../../../../custom/Database/customStyleData';
 
 interface Props {
   showTopProjectsList: boolean;
@@ -20,6 +21,7 @@ function Header({
   projects,
 }: Props): ReactElement {
   const { t, ready } = useTranslation(['donate']);
+  const {sidebar} = usecustomStyleData();
   return ready ? (
     <div className={'header'}>
       {showTopProjectsList ? (
@@ -53,7 +55,7 @@ function Header({
           </div>
         </div>
       ) : (
-        <p className={'headerText'}>{t('donate:stopTalkingStartPlanting')}</p>
+        <p className={'headerText'}>{sidebar.home}</p>
       )}
 
       <button

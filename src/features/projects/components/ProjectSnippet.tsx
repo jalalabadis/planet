@@ -28,12 +28,14 @@ interface Props {
     | ConservationProjectExtended;
   editMode: boolean;
   displayPopup: boolean;
+  customstyleDB: string
 }
 
 export default function ProjectSnippet({
   project,
   editMode,
   displayPopup,
+  customstyleDB
 }: Props): ReactElement {
   const router = useRouter();
   const { t, i18n, ready } = useTranslation([
@@ -136,7 +138,7 @@ export default function ProjectSnippet({
       <div className={'projectInfo'}>
         <div className={'projectData'}>
           <div className={'targetLocation'}>
-            <div className={'target'}>
+            <div className={'target'} style={{color: customstyleDB}}>
               {project.purpose === 'trees' && project.countPlanted > 0 && (
                 <>
                   {localizedAbbreviatedNumber(
@@ -159,6 +161,7 @@ export default function ProjectSnippet({
           </div>
           <div
             className={'projectTPOName'}
+            style={{color: customstyleDB}}
             onClick={() => {
               embed === 'true'
                 ? window.open(`/t/${project.tpo.slug}`, '_top')
@@ -183,7 +186,8 @@ export default function ProjectSnippet({
                 >
                   {t('common:donate')}
                 </button>
-                <div className={'perUnitCost'}>
+                <div className={'perUnitCost'}
+                style={{color: customstyleDB}}>
                   {getFormatedCurrency(
                     i18n.language,
                     project.currency,

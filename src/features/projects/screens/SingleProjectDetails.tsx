@@ -18,6 +18,10 @@ import ProjectTabs from '../components/maps/ProjectTabs';
 import PlantLocationDetails from '../components/PlantLocation/PlantLocationDetails';
 import { ParamsContext } from '../../common/Layout/QueryParamsContext';
 import TopProjectReports from '../components/projectDetails/TopProjectReports';
+import usecustomStyleData from '../../../custom/Database/customStyleData';
+import { ContainerbaertWrap } from '../../../custom/clintdataStyle';
+
+
 
 const TimeTravel = dynamic(() => import('../components/maps/TimeTravel'), {
   ssr: false,
@@ -54,6 +58,7 @@ function SingleProjectDetails(): ReactElement {
     useContext(ParamsContext);
   const isEmbed = embed === 'true';
   const [hideProjectContainer, setHideProjectContainer] = useState(isEmbed);
+  const {CustomStyleData} = usecustomStyleData();
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -173,7 +178,7 @@ function SingleProjectDetails(): ReactElement {
         </Modal>
 
         {!(isEmbed && showProjectDetails === 'false') && (
-          <div
+          <ContainerbaertWrap
             className={`projectContainer ${
               isMobile && hideProjectContainer && showProjectDetails !== 'true'
                 ? 'mobile-hidden'
@@ -272,7 +277,7 @@ function SingleProjectDetails(): ReactElement {
                 </div>
               </div>
             )}
-          </div>
+          </ContainerbaertWrap>
         )}
       </div>
     </>

@@ -13,6 +13,7 @@ import {
   ConservationProjectConcise,
   TreeProjectConcise,
 } from '@planet-sdk/common/build/types/project/map';
+import usecustomStyleData from '../../../custom/Database/customStyleData';
 
 interface Props {
   project: TreeProjectConcise | ConservationProjectConcise;
@@ -26,6 +27,7 @@ export default function PopupProject({
   const { t, i18n, ready } = useTranslation(['donate', 'common', 'country']);
   const { token } = useUserProps();
   const { embed } = React.useContext(ParamsContext);
+  const {CustomStyleData, maps} = usecustomStyleData();
 
   const ImageSource = project.image
     ? getImageUrl('project', 'medium', project.image)
@@ -89,12 +91,13 @@ export default function PopupProject({
         />
       </div>
       <div
-        className={'projectInfo'}
-        style={{ padding: '16px', backgroundColor: 'var(--background-color)' }}
+        className={`projectInfo`}
+        style={{background: maps?.popupbg, padding: '16px'}}
       >
         <div className={'projectData'}>
           <div className={'targetLocation'}>
-            <div className={'target'}>
+            <div className={'target'}
+            style={{color: maps?.textcolor}}>
               {project.purpose === 'trees' && project.countPlanted > 0 && (
                 <>
                   {localizedAbbreviatedNumber(
@@ -115,7 +118,8 @@ export default function PopupProject({
               </span>
             </div>
           </div>
-          <div className={'projectTPOName'}>
+          <div className={'projectTPOName'}
+          style={{color: maps?.textcolor}}>
             {t('common:by', {
               tpoName: project.tpo.name,
             })}
@@ -133,7 +137,8 @@ export default function PopupProject({
                 >
                   {t('common:donate')}
                 </button>
-                <div className={'perUnitCost'}>
+                <div className={'perUnitCost'}
+                style={{color: maps?.textcolor}}>
                   {getFormatedCurrency(
                     i18n.language,
                     project.currency,

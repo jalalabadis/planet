@@ -12,6 +12,7 @@ import LayerDisabled from '../../../../public/assets/images/icons/LayerDisabled'
 import { useTranslation } from 'next-i18next';
 import { ParamsContext } from '../../common/Layout/QueryParamsContext';
 import { PopupData } from './maps/Markers';
+import usecustomStyleData from '../../../custom/Database/customStyleData';
 
 export default function ProjectsMap(): ReactElement {
   const {
@@ -50,6 +51,8 @@ export default function ProjectsMap(): ReactElement {
 
   // Projects
   const [popupData, setPopupData] = useState<PopupData>({ show: false });
+
+  const {maps} = usecustomStyleData();
 
   // Use Effects
   useEffect(() => {
@@ -144,9 +147,9 @@ export default function ProjectsMap(): ReactElement {
 
   return (
     <div
-      className={
-        embed === 'true' ? styles.onlymapContainer : styles.mapContainer
-      }
+      className={`
+        ${embed === 'true' ? styles.onlymapContainer : styles.mapContainer}`}
+      style={{background: maps?.background}}
     >
       <MapGL
         ref={mapRef}

@@ -14,6 +14,7 @@ import GetSubMenu from './getSubMenu';
 import { lang_path } from '../../../../utils/constants/wpLanguages';
 import { ParamsContext } from '../QueryParamsContext';
 import ImpersonationActivated from '../../../user/Settings/ImpersonateUser/ImpersonationActivated';
+import usecustomStyleData from '../../../../custom/Database/customStyleData';
 
 // used to detect window resize and return the current width of the window
 const useWidth = () => {
@@ -27,7 +28,7 @@ const useWidth = () => {
   return width;
 };
 
-const config = tenantConfig();
+const config = tenantConfig(); 
 export default function NavbarComponent() {
   const { t, ready, i18n } = useTranslation(['common']);
   const router = useRouter();
@@ -40,10 +41,13 @@ export default function NavbarComponent() {
     changeChocolate: 'chocolate',
     stopTalkingStartPlanting: 'stop-talking-start-planting',
   };
+  const {CustomStyleData, navbar} = usecustomStyleData();
   const [menu, setMenu] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [mobileWidth, setMobileWidth] = useState(false);
   const { embed } = useContext(ParamsContext);
+
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (window.innerWidth > 767) {
@@ -51,8 +55,13 @@ export default function NavbarComponent() {
       } else {
         setMobileWidth(true);
       }
-    }
-  });
+    };
+  },[]);
+
+
+
+
+
   const width = useWidth();
 
   // changes the isMobile state to true if the window width is less than 768px
@@ -141,7 +150,7 @@ export default function NavbarComponent() {
     const links = Object.keys(config.header.items);
     const tenantName = config?.tenantName;
     return links ? (
-      <div className={'menuItems'}>
+      <div className={`menuItems ${CustomStyleData().NavbarStyle}`}>
         {links.map((link) => {
           const linkKey = link as keyof typeof config.header.items;
           let SingleLink = config.header.items[linkKey];
@@ -150,7 +159,7 @@ export default function NavbarComponent() {
           if (SingleLink) {
             if (link === 'me' && SingleLink.visible) {
               return (
-                <button
+                <div
                   id={'navbarActiveIcon'}
                   key={link}
                   onClick={() => gotoUserPage()}
@@ -163,14 +172,14 @@ export default function NavbarComponent() {
                     className={
                       router.pathname === SingleLink.onclick
                         ? 'active_icon'
-                        : ''
+                        : 'unactive_icon'
                     }
                   >
                     {user && SingleLink.loggedInTitle
                       ? t('common:' + SingleLink.loggedInTitle)
                       : t('common:' + SingleLink.title)}
                   </p>
-                </button>
+                </div>
               );
             }
             if (link === 'about' && SingleLink.visible) {
@@ -206,7 +215,8 @@ export default function NavbarComponent() {
                 }
                 key={link}
               >
-                <Link href={isMobile && hasSubMenu ? '' : SingleLink.onclick}>
+                <Link href={isMobile && hasSubMenu ? '' : (navbar && navbar[link] ? navbar[link] : '')}>
+                
                   <div className={`linkContainer`}>
                     <GetNavBarIcon
                       mainKey={link}
@@ -216,10 +226,11 @@ export default function NavbarComponent() {
                     />
                     {link === 'donate' ? (
                       <p
+                        
                         className={
                           router.pathname === '/' || router.pathname === '/[p]'
                             ? 'active_icon'
-                            : ''
+                            : 'unactive_icon'
                         }
                       >
                         {t('common:' + SingleLink.title)}
@@ -229,15 +240,18 @@ export default function NavbarComponent() {
                         className={
                           router.pathname === SingleLink.onclick
                             ? 'active_icon'
-                            : ''
-                        }
-                      >
-                        {t('common:' + SingleLink.title)}
+                            : 'unactive_icon'
+                        }>
+
+                      {t('common:' + SingleLink.title)}
+                      
+                        
                       </p>
-                    )}
-                  </div>
+                    )}</div>
+               
                 </Link>
-                <div className={`subMenuItems ${menu ? 'showSubMenu' : ''}`}>
+                <div className={`subMenuItems ${menu ? 'showSubMenu' : ''}`}
+                >
                   {SingleLink.subMenu &&
                     SingleLink.subMenu.length > 0 &&
                     SingleLink.subMenu.map((submenu) => {
@@ -295,7 +309,7 @@ export default function NavbarComponent() {
       )}
       <div
         className={`mainNavContainer`}
-        style={{ top: isImpersonationModeOn ? 49 : 0 }}
+        style={{background: navbar?.background, top: (isImpersonationModeOn ? 49 : 0) }}
       >
         <div className={'top_nav'}>
           <div className={'brandLogos'}>
@@ -329,15 +343,15 @@ export default function NavbarComponent() {
             )}
 
             {theme === 'theme-light' ? (
-              <a href="https://a.plant-for-the-planet.org">
+              <a href={navbar?.home}>
                 <img
                   className={'tenantLogo'}
-                  src={`${process.env.CDN_URL}/logo/svg/planet.svg`}
+                  src={navbar?.logo}
                   alt={t('common:about_pftp')}
                 />
               </a>
             ) : (
-              <a href="https://a.plant-for-the-planet.org">
+              <a href={navbar?.home}>
                 <img
                   className={'tenantLogo'}
                   src={`/assets/images/PlanetDarkLogo.svg`}

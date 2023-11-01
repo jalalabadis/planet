@@ -50,7 +50,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: $backgroundColor;
   border-radius: 13px 13px 0px 0px;
   height: 50px;
   width: 100%;
@@ -134,7 +133,7 @@
   color: $primaryFontColor;
 }
 .searchInput > input {
-  background-color: aqua;
+  background-color: rgb(255, 0, 0);
 }
 .cancelIcon {
   margin-right: 6px;
@@ -152,7 +151,6 @@
 .projectsContainer {
   display: flex;
   flex-direction: column;
-  background-color: $backgroundColor;
   margin-top: 0px;
   width: 100%;
   padding-left: 16px;

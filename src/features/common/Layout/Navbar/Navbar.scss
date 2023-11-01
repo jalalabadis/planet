@@ -73,10 +73,6 @@
       font-weight: 700;
       margin: 5px;
       line-height: 1;
-      color: $primaryFontColor;
-    }
-    > p.active_icon {
-      color: $primaryColor;
     }
     .link_icon {
       width: 24px;
@@ -84,22 +80,10 @@
       margin: 5px;
       cursor: pointer;
     }
-    > .link_icon > svg > path {
-      fill: $primaryFontColor;
-    }
-    > .link_icon.active_icon > svg > path {
-      fill: $primaryColor;
-    }
+    
+ 
     &:hover {
       cursor: pointer;
-      color: $primaryColor;
-      > p {
-        color: $primaryColor;
-      }
-      > .link_icon > svg > path {
-        fill: $primaryColor;
-        stroke: $primaryColor;
-      }
     }
   }
 }
@@ -113,7 +97,6 @@
     height: 330px;
     width: 300px;
     display: none;
-    background-color: $backgroundColor;
     padding: 12px;
     flex-direction: column;
     border-radius: 8px;

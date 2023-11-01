@@ -19,7 +19,7 @@ module.exports = {
     ecmaVersion: 11,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', '@emotion', 'cypress'],
+  plugins: ['react', '@typescript-eslint', '@emotion', 'cypress', 'next'],
   rules: {
     'no-undef': 'warn',
     'no-unsafe-optional-chaining': 'warn',

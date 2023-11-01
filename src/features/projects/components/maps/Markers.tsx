@@ -6,6 +6,7 @@ import styles from '../../styles/ProjectsMap.module.scss';
 import { ParamsContext } from '../../../common/Layout/QueryParamsContext';
 import { SetState } from '../../../common/types/common';
 import { MapProject } from '../../../common/types/ProjectPropsContextInterface';
+import usecustomStyleData from '../../../../custom/Database/customStyleData';
 
 type PopupClosedData = {
   show: false;
@@ -44,6 +45,7 @@ export default function Markers({
     setOpen(false);
   };
 
+  const {maps}=usecustomStyleData();
   return (
     <>
       {searchedProject.map((projectMarker, index) => (
@@ -59,7 +61,10 @@ export default function Markers({
               projectMarker.properties.purpose === 'conservation'
                 ? styles.conservationMarker
                 : ''
-            }`}
+            }`
+          }
+          style={{background: projectMarker.properties.purpose === 'conservation'?
+                 maps?.markcoloractive:maps?.markcolor}}
             onClick={() => {
               router.push(
                 `/${projectMarker.properties.slug}/${

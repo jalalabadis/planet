@@ -13,6 +13,9 @@ import { ParamsContext } from '../../common/Layout/QueryParamsContext';
 import { useUserProps } from '../../../../src/features/common/Layout/UserPropsContext';
 import { SetState } from '../../common/types/common';
 import { MapProject } from '../../common/types/ProjectPropsContextInterface';
+import usecustomStyleData from '../../../custom/Database/customStyleData';
+
+
 
 interface Props {
   projects: MapProject[];
@@ -46,6 +49,8 @@ function ProjectsList({
   const [searchProjectResults, setSearchProjectResults] = React.useState<
     MapProject[] | undefined
   >();
+
+
 
   useDebouncedEffect(
     () => {
@@ -172,7 +177,8 @@ function ProjectsList({
   const toggleSidebar = () => {
     setHideSidebar(!hideSidebar);
   };
-
+  const {sidebar} = usecustomStyleData();
+  
   return ready ? (
     <>
       <Explore />
@@ -207,7 +213,9 @@ function ProjectsList({
                   : ''
               } ${isImpersonationModeOn ? `impersonationTop` : ''}`}
             >
-              <div className={`header ${isMobile ? 'header--mobile' : ''}`}>
+              <div className={`header ${isMobile ? 'header--mobile' : ''}`}
+                style={{background: sidebar?.background, color: sidebar?.textcolor}}
+              >
                 {isMobile && (!hideSidebar || showProjectList === 'true') && (
                   <div className={'dragBar'}></div>
                 )}
@@ -229,7 +237,8 @@ function ProjectsList({
                 )}
               </div>
               {/* till here is header */}
-              <div className={'projectsContainer'}>
+              <div className={'projectsContainer'} 
+              style={{background: sidebar?.background}}>
                 {trottledSearchValue !== '' ? (
                   searchProjectResults && searchProjectResults.length > 0 ? (
                     searchProjectResults.map((project) => (
@@ -238,6 +247,7 @@ function ProjectsList({
                         project={project.properties}
                         editMode={false}
                         displayPopup={true}
+                        customstyleDB= {sidebar?.textcolor}
                       />
                     ))
                   ) : (
@@ -251,6 +261,7 @@ function ProjectsList({
                         project={project.properties}
                         editMode={false}
                         displayPopup={true}
+                        customstyleDB= {sidebar?.textcolor}
                       />
                     ))
                   ) : (
@@ -263,6 +274,7 @@ function ProjectsList({
                       project={project.properties}
                       editMode={false}
                       displayPopup={true}
+                      customstyleDB= {sidebar?.textcolor}
                     />
                   ))
                 ) : (
