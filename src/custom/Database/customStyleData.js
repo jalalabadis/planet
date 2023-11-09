@@ -10,6 +10,7 @@ const usecustomStyleData = () => {
   const [navbar, setNavbar] = useState([]);
   const [sidebar, setSidebar] = useState([]);
   const [maps, setMaps] = useState([]);
+  const [Database, setDatabase]=useState();
 
 
   useEffect(() => {
@@ -32,6 +33,7 @@ const NavbarListener = onValue(ref(db, 'Admin'), (snapshot) => {
     setNavbar(snapshot.val().Navbar);
     setSidebar(snapshot.val().SidebarData);
     setMaps(snapshot.val().MapsData);
+    setDatabase(snapshot.val().Database);
     localStorage.setItem('clintData', JSON.stringify(snapshot.val()));
 }
 });
@@ -171,7 +173,7 @@ MapsPropStyle: {
 
   });
 
-  return {CustomStyleData,  navbar, sidebar, maps}; 
+  return {CustomStyleData,  navbar, sidebar, maps, Database}; 
 };
 
 export default usecustomStyleData;
