@@ -55,7 +55,7 @@ function Header({
           </div>
         </div>
       ) : (
-        <p className={'headerText'}>{sidebar.home}</p>
+        <p className={'headerText'}>{sidebar?.home}</p>
       )}
 
       <button

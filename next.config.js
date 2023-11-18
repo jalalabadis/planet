@@ -114,7 +114,7 @@ const nextConfig = {
     TENANT: process.env.TENANT,
     TENANTID: process.env.TENANTID,
     SCHEME: scheme,
-    API_ENDPOINT: `${scheme}://${process.env.API_ENDPOINT}`,
+    API_ENDPOINT: `${process.env.API_ENDPOINT}`,
     CDN_URL: `${scheme}://${process.env.CDN_URL}`,
     NEXTAUTH_URL: nextauthUrl,
     VERCEL_URL: process.env.VERCEL_URL,

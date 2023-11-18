@@ -31,7 +31,7 @@ interface Props {
   customstyleDB: string
 }
 
-export default function ProjectSnippet({
+export default function ProjectSnippet({ 
   project,
   editMode,
   displayPopup,
@@ -45,9 +45,7 @@ export default function ProjectSnippet({
     'manageProjects',
   ]);
   const { embed, callbackUrl } = React.useContext(ParamsContext);
-  const ImageSource = project.image
-    ? getImageUrl('project', 'medium', project.image)
-    : '';
+  const ImageSource = project.image;
 
   const { selectedPl, hoveredPl } = useProjectProps();
 

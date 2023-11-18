@@ -4,6 +4,7 @@ import {getStorage, ref as ref_storage, uploadBytes, getDownloadURL} from  "fire
 import { getDatabase, onValue, ref, update } from 'firebase/database';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 function TemplateEdit() {
 const iframeRef = useRef();
@@ -14,6 +15,7 @@ const [sidebarData, setSidebarData]=useState([]);
 const [mapsData, setMapsData]=useState([]);
 const [database, setDatabase]=useState([]);
 const [isExpanded, setIsExpanded] = useState(false);
+const [dbconnectStatus, setDbconnectStatus]=useState('Check');
 
 ///UseEffect
 useEffect(()=>{
@@ -58,6 +60,18 @@ const handleFileChange = (e) => {
        ////Update Database info
  const handelDatabase=(e)=>{
     update(ref(db, 'Admin/Database'), e);
+    setDbconnectStatus('reconnect');
+  };
+
+  /////Database update check
+  const handeldbconnectStatus=()=>{
+axios.get(`/api/database/reconnect`)
+.then(response=>{
+setDbconnectStatus('Connect');
+})
+.catch(err=>{
+    setDbconnectStatus('reconnect');
+})
   };
   return (
     <>
@@ -85,6 +99,50 @@ const handleFileChange = (e) => {
                     <input type="text"
                     value={navData.about} 
                     onChange={e=> handelnavData({about: e.target.value})} 
+                    placeholder="Type here.."/>
+                    <br />
+                    <span>overview Url</span><br />
+                    <input type="text"
+                    value={navData.overview} 
+                    onChange={e=> handelnavData({overview: e.target.value})} 
+                    placeholder="Type here.."/>
+                    <br />
+                    <span>childrenAndYouth Url</span><br />
+                    <input type="text"
+                    value={navData.childrenAndYouth} 
+                    onChange={e=> handelnavData({childrenAndYouth: e.target.value})} 
+                    placeholder="Type here.."/>
+                    <br />
+                    <span>trillionTrees Url</span><br />
+                    <input type="text"
+                    value={navData.trillionTrees} 
+                    onChange={e=> handelnavData({trillionTrees: e.target.value})} 
+                    placeholder="Type here.."/>
+                    <br />
+                    <span>yucatan Url</span><br />
+                    <input type="text"
+                    value={navData.yucatan} 
+                    onChange={e=> handelnavData({yucatan: e.target.value})} 
+                    placeholder="Type here.."/>
+                    <br />
+                    <span>partners Url</span><br />
+                    <input type="text"
+                    value={navData.partners} 
+                    onChange={e=> handelnavData({partners: e.target.value})} 
+                    placeholder="Type here.."/>
+
+<br />
+                    <span>changeChocolate Url</span><br />
+                    <input type="text"
+                    value={navData.changeChocolate} 
+                    onChange={e=> handelnavData({changeChocolate: e.target.value})} 
+                    placeholder="Type here.."/>
+
+                    <br />
+                    <span>stopTalkingStartPlanting Url</span><br />
+                    <input type="text"
+                    value={navData.stopTalkingStartPlanting} 
+                    onChange={e=> handelnavData({stopTalkingStartPlanting: e.target.value})} 
                     placeholder="Type here.."/>
                     <br />
                     <span>Leaders Url</span><br />
@@ -188,7 +246,39 @@ const handleFileChange = (e) => {
                     <input type="color" 
                     value={mapsData?.popupbg} 
                     onChange={e=> handelmapsData({popupbg: e.target.value})}></input>
+                      <br />
+                    <span>Status Url</span><br />
+                    <input type="text" 
+                    value={mapsData?.Status} 
+                    onChange={e=> handelmapsData({Status: e.target.value})} 
+                    placeholder="Type here.."/>
+                       <br />
+                    <span>imprint Url</span><br />
+                    <input type="text" 
+                    value={mapsData?.imprint} 
+                    onChange={e=> handelmapsData({imprint: e.target.value})} 
+                    placeholder="Type here.."/>
 
+<br />
+                    <span>privacy Url</span><br />
+                    <input type="text" 
+                    value={mapsData?.privacy} 
+                    onChange={e=> handelmapsData({privacy: e.target.value})} 
+                    placeholder="Type here.."/>
+
+              <br />
+                    <span>terms Url</span><br />
+                    <input type="text" 
+                    value={mapsData?.terms} 
+                    onChange={e=> handelmapsData({terms: e.target.value})} 
+                    placeholder="Type here.."/>
+
+                       <br />
+                    <span>contact Url</span><br />
+                    <input type="text" 
+                    value={mapsData?.contact} 
+                    onChange={e=> handelmapsData({contact: e.target.value})} 
+                    placeholder="Type here.."/>   
                 </div>
             </div>
         </div>
@@ -207,6 +297,8 @@ const handleFileChange = (e) => {
                     placeholder="Type here.."/>
 
                 </div>
+
+                <button onClick={handeldbconnectStatus}>{dbconnectStatus}</button>
             </div>
         </div>
     </div>

@@ -5,8 +5,9 @@ import SelectLanguageAndCountry from '../../../common/Layout/Footer/SelectLangua
 import tenantConfig from '../../../../../tenant.config';
 import DarkModeSwitch from '../../../common/Layout/DarkModeSwitch.tsx';
 import { ParamsContext } from '../../../common/Layout/QueryParamsContext';
+import usecustomStyleData from '../../../../custom/Database/customStyleData';
 
-const config = tenantConfig();
+const config = tenantConfig(); 
 
 interface Props {
   setCurrencyCode: Function;
@@ -40,7 +41,7 @@ export default function Credits({ setCurrencyCode }: Props): ReactElement {
       }
     }
   }, []);
-
+  const {maps} = usecustomStyleData();
   return (
     <>
       <div className={styles.lngSwitcher + ' mapboxgl-map'}>
@@ -69,7 +70,7 @@ export default function Credits({ setCurrencyCode }: Props): ReactElement {
 
         <a
           rel="noopener noreferrer"
-          href={`https://status.pp.eco/`}
+          href={maps?.Status}
           target={isEmbed ? '_top' : '_blank'}
         >
           {t('common:status')}
@@ -77,7 +78,7 @@ export default function Credits({ setCurrencyCode }: Props): ReactElement {
         {!isEmbed && (
           <a
             rel="noopener noreferrer"
-            href={`https://pp.eco/legal/${i18n.language}/imprint`}
+            href={maps?.imprint}
             target={'_blank'}
           >
             {t('common:imprint')}
@@ -86,7 +87,7 @@ export default function Credits({ setCurrencyCode }: Props): ReactElement {
         {!isEmbed && (
           <a
             rel="noopener noreferrer"
-            href={`https://pp.eco/legal/${i18n.language}/privacy`}
+            href={maps?.privacy}
             target={'_blank'}
           >
             {t('common:privacy')}
@@ -95,7 +96,7 @@ export default function Credits({ setCurrencyCode }: Props): ReactElement {
         {!isEmbed && (
           <a
             rel="noopener noreferrer"
-            href={`https://pp.eco/legal/${i18n.language}/terms`}
+            href={maps?.terms}
             target={'_blank'}
           >
             {t('common:terms')}
@@ -137,7 +138,7 @@ export default function Credits({ setCurrencyCode }: Props): ReactElement {
         {!isEmbed && (
           <a
             rel="noopener noreferrer"
-            href="mailto:support@plant-for-the-planet.org"
+            href={maps?.contact}
             target={'_blank'}
           >
             {t('common:contact')}

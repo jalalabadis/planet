@@ -3,6 +3,7 @@ import CloseIcon from '../../../../../public/assets/images/icons/CloseIcon';
 import styles from './CookiePolicy.module.scss';
 import { useUserProps } from '../UserPropsContext';
 import { useTranslation } from 'next-i18next';
+import usecustomStyleData from '../../../../custom/Database/customStyleData';
 
 export default function CookiePolicy() {
   const [showCookieNotice, setShowCookieNotice] = useState(false);
@@ -39,7 +40,7 @@ export default function CookiePolicy() {
   useEffect(() => {
     isMountedRef.current = true;
   }, []);
-
+  const {maps} = usecustomStyleData();
   return ready && showCookieNotice ? (
     <div className={styles.cookieContainer}>
       <button
@@ -51,7 +52,7 @@ export default function CookiePolicy() {
       </button>
       <div className={styles.cookieContent}>
         {t('common:privacyPolicyNotice')}{' '}
-        <a href="https://www.plant-for-the-planet.org/en/footermenu/privacy-policy">
+        <a href={maps?.privacy}>
           {t('common:privacyPolicy')}
         </a>
       </div>

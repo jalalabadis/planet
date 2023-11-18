@@ -259,17 +259,7 @@ export default function NavbarComponent() {
                         <a
                           key={submenu.title}
                           className={'menuRow'}
-                          href={`https://a.plant-for-the-planet.org/${
-                            lang_path[i18n.language as keyof typeof lang_path]
-                              ? lang_path[
-                                  i18n.language as keyof typeof lang_path
-                                ]
-                              : 'en'
-                          }/${
-                            subMenuPath[
-                              submenu.title as keyof typeof subMenuPath
-                            ]
-                          }`}
+                          href={navbar?navbar[submenu.title]:''}
                         >
                           <div
                             style={{
