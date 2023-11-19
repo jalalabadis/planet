@@ -52,7 +52,7 @@ export function getRequest<T>(
   return new Promise<T>((resolve, reject) => {
     (async () => {
       try {
-        const res = await fetch(fullUrl, {
+        const res = await fetch(`/api/app/projects`, {
           method: 'GET',
           headers: {
             'tenant-key': `${TENANT_ID}`,
